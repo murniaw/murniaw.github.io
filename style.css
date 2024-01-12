@@ -1,0 +1,29 @@
+.body {
+  min-height: 3000px;
+}
+.jumbotron {
+  padding-top: 6rem;
+  background-color: lightgoldenrodyellow;
+  margin-bottom: -1px;
+}
+#about {
+  padding-top: 6rem;
+  background-color: #00072d;
+  color: white;
+}
+#gallery {
+  margin-top: -1px;
+  padding-top: 6rem;
+  background-color: rgb(230, 249, 255);
+}
+#contact {
+  margin-top: -1px;
+  background-color: lightgoldenrodyellow;
+}
+.footer {
+  margin-top: -1px;
+  padding-bottom: -3rem;
+  padding-top: 1rem;
+  background-color: #01051b;
+  color: white;
+}
