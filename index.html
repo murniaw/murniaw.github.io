@@ -147,22 +147,29 @@
           </div>
           <div class="row justify-content-center">
             <div class="col-md-8">
-              <form method="POST" action="">
+              <div class="alert alert-info alert-dismissible fade show d-none" role="alert">
+                <strong>Terima kasih!</strong> Pesan Anda sudah kami terima
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <form name="webporto-contact-form">
                 <div class="mb-3">
                   <label for="name" class="form-label">Nama</label>
-                  <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Masukkan nama lengkap Anda">
+                  <input type="text" class="form-control" id="name" name="nama" aria-describedby="name" placeholder="Masukkan nama lengkap Anda">
                 </div>
-              <form>
                 <div class="mb-3">
                   <label for="email" class="form-label">Alamat Email</label>
-                  <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Isikan alamat email Anda">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Isikan alamat email Anda">
                   <div id="email" class="form-text">Isian ini bersifat rahasia dan tidak akan disebarkan kepada siapa pun</div>
                 </div>
                 <div class="mb-3">
                   <label for="pesan" class="form-label">Pesan</label>
-                  <textarea class="form-control" id="pesan" rows="3" placeholder="Tulis pesan dan kesan Anda di sini"></textarea>
+                  <textarea class="form-control" id="pesan" name="pesan" rows="3" placeholder="Tulis pesan dan kesan Anda di sini"></textarea>
                 </div>
-                <button type="submit" class="btn btn-danger">Kirim</button>
+                <button type="submit" class="btn btn-primary btn-kirim">Kirim</button>
+                <button class="btn btn-primary btn-loading d-none" type="button" disabled>
+                  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                  Loading...
+                </button>
               </form>
             </div>
           </div>
@@ -182,5 +189,29 @@
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- JS Contact Form -->
+    <script>
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbz5BsM_5b51-azqX97YRj9J8AcvdQfGYEY4ZM-GySnRiHYcsA1Sp9729jUKVnpTQHrG/exec'
+      const form = document.forms['webporto-contact-form'];
+      const btnKirim = document.querySelector('.btn-kirim');
+      const btnLoading = document.querySelector('.btn-loading');
+      const alert = document.querySelector('.alert');
+    
+      form.addEventListener('submit', e => {
+        e.preventDefault()
+        //tombol kirim diklik, ganti dengan tombol loading
+        btnLoading.classList.toggle('d-none');
+        btnKirim.classList.toggle('d-none');
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+          .then(response => {
+            console.log('Success!', response)
+            btnLoading.classList.toggle('d-none');
+            btnKirim.classList.toggle('d-none');
+            alert.classList.toggle('d-none');
+            form.reset();
+           })
+          .catch(error => console.error('Error!', error.message))
+      })
+    </script>
   </body>
 </html>
